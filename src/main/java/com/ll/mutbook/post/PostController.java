@@ -3,10 +3,7 @@ package com.ll.mutbook.post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -26,9 +23,8 @@ public class PostController {
     }
 
     @GetMapping("/{id}")
-    @ResponseBody
-    public String detailPage(){
-        return "상세 페이지";
+    public String detailPage(Model model, @PathVariable("id") Integer id){
+        return "post_detail";
     }
 
     @GetMapping("/write")

@@ -16,7 +16,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="post, index : ${[postList}">
+    <tr th:each="post : ${postList}">
         <td>
             <a th:href="@{|/post/detail/${post.id}|}" th:text="${post.subject}"></a>
         </td>
