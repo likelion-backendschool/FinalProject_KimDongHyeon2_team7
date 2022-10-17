@@ -11,9 +11,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class PostController {
 
     @GetMapping("/list")
-    @ResponseBody
     public String list(){
-        return "전체 리스트 페이지";
+        return "post_list";
     }
 
     @GetMapping("/{id}")
