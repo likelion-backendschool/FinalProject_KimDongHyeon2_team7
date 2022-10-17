@@ -24,6 +24,9 @@ public class PostController {
 
     @GetMapping("/{id}")
     public String detailPage(Model model, @PathVariable("id") Integer id){
+        Post post = this.postService.getPost(id);
+        model.addAttribute("post", post);
+
         return "post_detail";
     }
 
