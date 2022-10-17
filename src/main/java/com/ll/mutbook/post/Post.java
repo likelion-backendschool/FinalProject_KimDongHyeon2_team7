@@ -26,4 +26,6 @@ public class Post {
 
     private LocalDateTime createDate;
 
+    private LocalDateTime modifyDate;
+
 }
