@@ -1,17 +1,27 @@
 package com.ll.mutbook.post;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
+
 @Controller
+@RequiredArgsConstructor
 @RequestMapping("/post")
 public class PostController {
 
+    private final PostService postService;
+
     @GetMapping("/list")
-    public String list(){
+    public String list(Model model){
+        List<Post> postList = this.postService.getList();
+        model.addAttribute("postList", postList);
+
         return "post_list";
     }
 
