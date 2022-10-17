@@ -4,6 +4,7 @@ import com.ll.mutbook.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,5 +25,14 @@ public class PostService {
         }else {
             throw new DataNotFoundException("데이터를 찾을 수 없습니다.");
         }
+    }
+
+    public void create(String subject, String content, String hashtag) {
+        Post p = new Post();
+        p.setSubject(subject);
+        p.setContent(content);
+        p.setHashTag(hashtag);
+        p.setCreateDate(LocalDateTime.now());
+        this.postRepository.save(p);
     }
 }

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html layout:decorate="~{layout}">
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <div layout:fragment="content" class="container my-3">
     <table class="table">
@@ -20,6 +20,7 @@
             </tr>
         </tbody>
     </table>
+    <a th:href="@{/post/write}" class="btn btn-primary">새 글</a>
 </div>
 
 </html>

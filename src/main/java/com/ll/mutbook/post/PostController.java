@@ -3,8 +3,10 @@ package com.ll.mutbook.post;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @Controller
@@ -31,9 +33,17 @@ public class PostController {
     }
 
     @GetMapping("/write")
-    @ResponseBody
-    public String addPost(){
-        return "글 등록 페이지";
+    public String addPost(PostForm postForm){
+        return "post_form";
+    }
+
+    @PostMapping("/write")
+    public String addPost(@Valid PostForm postForm, BindingResult bindingResult){
+        if(bindingResult.hasErrors()){
+            return "post_form";
+        }
+        this.postService.create(postForm.getSubject(), postForm.getContent(), postForm.getHashtag());
+        return "redirect:/post/list";
     }
 
     @GetMapping("/{id}/modify")
@@ -44,7 +54,7 @@ public class PostController {
 
     @PostMapping("/{id}/modify")
     @ResponseBody
-    public String modifySendPost(){
+    public String modifyPost(@RequestParam String a){
         return "글 수정 전송";
     }
 
