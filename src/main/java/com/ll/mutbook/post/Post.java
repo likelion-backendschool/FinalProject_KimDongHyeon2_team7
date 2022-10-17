@@ -21,6 +21,9 @@ public class Post {
     @Column(columnDefinition = "TEXT")
     private String content;
 
+    @Column(columnDefinition = "TEXT")
+    private String hashTag;
+
     private LocalDateTime createDate;
 
 }
