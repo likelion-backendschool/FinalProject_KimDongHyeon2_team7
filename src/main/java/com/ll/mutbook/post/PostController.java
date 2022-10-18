@@ -1,12 +1,16 @@
 package com.ll.mutbook.post;
 
+import com.ll.mutbook.user.SiteUser;
+import com.ll.mutbook.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
 
 @Controller
@@ -15,6 +19,7 @@ import java.util.List;
 public class PostController {
 
     private final PostService postService;
+    private final UserService userService;
 
     @GetMapping("/list")
     public String list(Model model){
@@ -32,17 +37,22 @@ public class PostController {
         return "post_detail";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/write")
     public String addPost(PostForm postForm){
         return "post_form";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/write")
-    public String addPost(@Valid PostForm postForm, BindingResult bindingResult){
+    public String addPost(@Valid PostForm postForm, BindingResult bindingResult, Principal principal){
+
+
         if(bindingResult.hasErrors()){
             return "post_form";
         }
-        this.postService.create(postForm.getSubject(), postForm.getContent(), postForm.getHashtag());
+        SiteUser siteUser = this.userService.getUser(principal.getName());
+        this.postService.create(postForm.getSubject(), postForm.getContent(), postForm.getHashtag(), siteUser);
         return "redirect:/post/list";
     }
 

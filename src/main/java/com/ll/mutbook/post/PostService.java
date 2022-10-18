@@ -1,6 +1,7 @@
 package com.ll.mutbook.post;
 
 import com.ll.mutbook.exception.DataNotFoundException;
+import com.ll.mutbook.user.SiteUser;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,11 +28,12 @@ public class PostService {
         }
     }
 
-    public void create(String subject, String content, String hashtag) {
+    public void create(String subject, String content, String hashtag, SiteUser user) {
         Post p = new Post();
         p.setSubject(subject);
         p.setContent(content);
         p.setHashTag(hashtag);
+        p.setAuthor(user);
         p.setCreateDate(LocalDateTime.now());
         this.postRepository.save(p);
     }

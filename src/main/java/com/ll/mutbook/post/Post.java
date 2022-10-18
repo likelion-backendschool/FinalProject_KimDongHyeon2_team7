@@ -1,5 +1,6 @@
 package com.ll.mutbook.post;
 
+import com.ll.mutbook.user.SiteUser;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -27,5 +28,8 @@ public class Post {
     private LocalDateTime createDate;
 
     private LocalDateTime modifyDate;
+
+    @ManyToOne
+    private SiteUser author;
 
 }

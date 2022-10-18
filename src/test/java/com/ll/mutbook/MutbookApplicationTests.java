@@ -49,7 +49,7 @@ class MutbookApplicationTests {
 			String subject = String.format("테스트 데이터입니다:[%03d]", i);
 			String content = "내용 없음.";
 			String hashtag = "#야호 #신난다";
-			this.postService.create(subject, content, hashtag);
+			this.postService.create(subject, content, hashtag, null);
 		}
 	}
 

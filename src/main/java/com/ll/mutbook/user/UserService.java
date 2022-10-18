@@ -1,9 +1,12 @@
 package com.ll.mutbook.user;
 
+import com.ll.mutbook.exception.DataNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -19,5 +22,14 @@ public class UserService {
         user.setPassword(passwordEncoder.encode(passward));
         this.userRepository.save(user);
 
+    }
+
+    public SiteUser getUser(String username) {
+        Optional<SiteUser> siteUser = this.userRepository.findByusername(username);
+        if (siteUser.isPresent()) {
+            return siteUser.get();
+        } else {
+            throw new DataNotFoundException("사이트 유저가 존재하지 않습니다.");
+        }
     }
 }
