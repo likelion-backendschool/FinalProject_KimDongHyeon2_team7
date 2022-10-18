@@ -3,9 +3,13 @@ package com.ll.mutbook.post;
 import com.ll.mutbook.exception.DataNotFoundException;
 import com.ll.mutbook.user.SiteUser;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,6 +21,29 @@ public class PostService {
 
     public List<Post> getList(){
         return this.postRepository.findAll();
+    }
+
+    /**
+     * index 페이지에 쓰일 정렬된 게시물 100개를 슬라이싱하기 위한 메서드
+     */
+    public static<T> List<T> getSubList(List<T> list, int startIndex, int endIndex) {
+        List<T> sublist = new ArrayList<>();
+        long index = 0;
+        for (T e : list) {
+            if (index >= startIndex && index <= endIndex) {
+                sublist.add(e);
+            } else if (index > endIndex) {
+                break;
+            }
+            index++;
+        }
+        return sublist;
+    }
+
+    public List<Post> get100List(){
+        List<Post> subList =  getSubList(this.postRepository.findAll(Sort.by(Sort.Direction.DESC, "createDate")), 0, 99);
+
+        return subList;
     }
 
     public Post getPost(Integer id) {
