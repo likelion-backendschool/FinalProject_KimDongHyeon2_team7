@@ -45,4 +45,8 @@ public class PostService {
         post.setModifyDate(LocalDateTime.now());
         this.postRepository.save(post);
     }
+
+    public void delete(Post post) {
+        this.postRepository.delete(post);
+    }
 }

@@ -85,10 +85,17 @@ public class PostController {
         return String.format("redirect:/question/detail/%s", id);
     }
 
+    @PreAuthorize("isAuthenticated()")
     @GetMapping("/{id}/delete")
-    @ResponseBody
-    public String deletePost(){
-        return "글 삭제";
+    public String postDelete(Principal principal, @PathVariable("id") Integer id){
+
+        Post post = this.postService.getPost(id);
+        if (!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제 권한이 없습니다.");
+        }
+        this.postService.delete(post);
+
+        return "redirect:/";
     }
 
 }
