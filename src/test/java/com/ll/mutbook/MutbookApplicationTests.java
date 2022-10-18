@@ -2,6 +2,7 @@ package com.ll.mutbook;
 
 import com.ll.mutbook.post.Post;
 import com.ll.mutbook.post.PostRepository;
+import com.ll.mutbook.post.PostService;
 import org.aspectj.weaver.patterns.TypePatternQuestions;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,10 @@ class MutbookApplicationTests {
 
 	@Autowired
 	private PostRepository postRepository;
+
+	@Autowired
+	private PostService postService;
+
 	@Test
 	void testJpa() {
 		Post q1 = new Post();
@@ -36,6 +41,16 @@ class MutbookApplicationTests {
 
 		Post q = all.get(0);
 		assertEquals("멋북이 무엇인가요?", q.getSubject());
+	}
+
+	@Test
+	void 테스트_데이터_생성(){
+		for(int i = 1; i < 300; i++){
+			String subject = String.format("테스트 데이터입니다:[%03d]", i);
+			String content = "내용 없음.";
+			String hashtag = "#야호 #신난다";
+			this.postService.create(subject, content, hashtag);
+		}
 	}
 
 }
