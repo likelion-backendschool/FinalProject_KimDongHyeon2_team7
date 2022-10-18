@@ -3,11 +3,13 @@ package com.ll.mutbook.post;
 import com.ll.mutbook.user.SiteUser;
 import com.ll.mutbook.user.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import javax.validation.Valid;
 import java.security.Principal;
@@ -57,9 +59,16 @@ public class PostController {
     }
 
     @GetMapping("/{id}/modify")
-    @ResponseBody
-    public String modifyPost(){
-        return "글 수정";
+    public String modifyPost(PostForm postForm, @PathVariable("id") Integer id, Principal principal){
+        Post post = this.postService.getPost(id);
+        if(!post.getAuthor().getUsername().equals(principal.getName())){
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다!");
+        }
+        postForm.setSubject(post.getSubject());
+        postForm.setContent(post.getContent());
+        postForm.setHashtag(post.getHashTag());
+
+        return "post_form";
     }
 
     @PostMapping("/{id}/modify")
