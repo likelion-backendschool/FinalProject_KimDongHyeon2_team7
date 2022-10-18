@@ -71,10 +71,18 @@ public class PostController {
         return "post_form";
     }
 
+    @PreAuthorize("isAuthenticated()")
     @PostMapping("/{id}/modify")
-    @ResponseBody
-    public String modifyPost(@RequestParam String a){
-        return "글 수정 전송";
+    public String modifyPost(@Valid PostForm postForm, BindingResult bindingResult, Principal principal, @PathVariable("id") Integer id){
+        if (bindingResult.hasErrors()) {
+            return "question_form";
+        }
+        Post post = this.postService.getPost(id);
+        if (!post.getAuthor().getUsername().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.postService.modify(post, postForm.getSubject(), postForm.getContent(), postForm.getHashtag());
+        return String.format("redirect:/question/detail/%s", id);
     }
 
     @GetMapping("/{id}/delete")

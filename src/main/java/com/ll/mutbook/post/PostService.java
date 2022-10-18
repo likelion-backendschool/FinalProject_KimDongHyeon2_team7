@@ -37,4 +37,12 @@ public class PostService {
         p.setCreateDate(LocalDateTime.now());
         this.postRepository.save(p);
     }
+
+    public void modify(Post post, String subject, String content, String hashtag) {
+        post.setSubject(subject);
+        post.setContent(content);
+        post.setHashTag(hashtag);
+        post.setModifyDate(LocalDateTime.now());
+        this.postRepository.save(post);
+    }
 }
