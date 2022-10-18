@@ -335,3 +335,26 @@ function ToastEditor__init() {
 ToastEditor__init();
 
 // 토스트 에디터 끝
+
+function ArticleSave__submit(form) {
+  form.title.value = form.title.value.trim();
+
+if (form.title.value.length == 0) {
+    alert("제목을 입력해주세요");
+    form.title.focus();
+
+    return;
+}
+
+
+const editor = $(form).find(".toast-ui-editor").data("data-toast-editor");
+
+const markdown = editor.getMarkdown();
+form.body.value = markdown.trim();
+
+if (form.body.value.length == 0) {
+alert("내용을 입력해주세요");
+editor.focus();
+
+return;
+}

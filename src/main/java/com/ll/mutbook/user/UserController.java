@@ -33,7 +33,7 @@ public class UserController {
     }
 
     @GetMapping("/join")
-    public String singUpForm(){
+    public String singUpForm(UserCreateForm userCreateForm){
         return "signup_form";
     }
 
