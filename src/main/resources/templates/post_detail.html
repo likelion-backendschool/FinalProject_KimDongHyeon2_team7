@@ -6,7 +6,20 @@
     <h2 class="border-bottom py-2" th:text="${post.subject}"></h2>
     <div class="card my-3">
         <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;" th:text="${post .content}"></div>
+            <div class="card-text" style="white-space: pre-line;">
+                <div class="toast-ui-viewer">
+                    <script type="text/x-template">
+                            # 하하
+                        ## 호호
+                        ## 희희
+
+                        ```java
+                        int a = 10;
+                        final int b = 20;
+                        ```
+                    </script>
+                </div>
+            </div>
             <div class="d-flex justify-content-end">
                 <div th:if="${post.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">수정됨</div>
@@ -34,7 +47,7 @@
         </div>
     </div>
 
-    <!-- 답변 반복 시작 -->
+
     <div class="card my-3">
         <div class="card-body">
             <p>해시태그 달릴 부분</p>

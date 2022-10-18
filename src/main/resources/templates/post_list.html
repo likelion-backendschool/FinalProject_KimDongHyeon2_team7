@@ -10,6 +10,7 @@
                 <th style="width:50%">제목</th>
                 <th>작가</th>
                 <th>작성일시</th>
+                <th>수정일시</th>
             </tr>
         </thead>
         <tbody>
@@ -23,6 +24,7 @@
                     <span th:if="${post.author != null}" th:text="${post.author.username}"></span>
                 </td>
                 <td th:text="${#temporals.format(post.createDate, 'yyyy-MM-dd HH:mm')}"></td>
+                <td th:text="${#temporals.format(post.modifyDate, 'yyyy-MM-dd HH:mm')}"></td>
             </tr>
         </tbody>
     </table>
