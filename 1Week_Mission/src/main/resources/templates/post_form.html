@@ -1,0 +1,76 @@
+<html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content" class="container">
+    <h5 class="my-3 border-bottom pb-2">게시글 등록</h5>
+    <script>
+    let ArticleWrite__submitDone = false;
+    function ArticleWrite__submit(form) {
+        if (ArticleWrite__submitDone) {
+            return;
+        }
+        form.subject.value = form.subject.value.trim();
+        if (form.subject.value.length == 0) {
+            form.subject.focus();
+            return;
+        }
+
+        const editor = $(form).find(".toast-ui-editor").data("data-toast-editor");
+
+        const markdown = editor.getMarkdown();
+        console.log(markdown);
+        form.content.value = markdown.trim();
+
+        if (form.content.value.length == 0) {
+            editor.focus();
+            return;
+        }
+        form.submit();
+        ArticleWrite__submitDone = true;
+    }
+</script>
+
+
+    <form th:object="${postForm}" method="post" onsubmit="ArticleWrite__submit(this); return false;" id="form_post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div th:replace="form_errors :: formErrorsFragment"></div>
+        <div class="mb-3">
+            <label for="subject" class="form-label">제목</label>
+            <input type="text" th:field="*{subject}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="content" class="form-label">내용</label>
+            <input type="hidden" name="content">
+            <div id="editor" class="toast-ui-editor" toast-ui-editor--height="700px" toast-ui-editor--placeholder="내용을 입력해주세요.">
+        </div>
+
+        </div>
+        <div class="mb-3">
+            <label for="hashtag" class="form-label">해시태그</label>
+            <textarea th:field="*{hashtag}" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" href="/" value="저장하기" class="btn btn-primary my-2">
+    </form>
+
+</div>
+
+
+
+
+<!--<script layout:fragment="script" type='text/javascript' th:inline="javascript">-->
+<!--    const Editor = toastui.Editor;-->
+
+<!--    const editor = new Editor({-->
+<!--        el: document.querySelector('#editor'),-->
+<!--        height: '600px',-->
+<!--        initialEditType: 'markdown',-->
+<!--        previewStyle: 'vertical',-->
+<!--        initialValue: document.getElementById("content").innerText-->
+<!--    });-->
+
+<!--    $("#form_post").on("submit", function () {-->
+<!--        $("#content").val(editor.getMarkdown());-->
+<!--        $("#contentHtml").val(editor.getHTML());-->
+<!--    })-->
+<!--</script>-->
+
+</html>
