@@ -1,6 +1,7 @@
 package com.ll.mutbook.user;
 
 import com.ll.mutbook.exception.DataNotFoundException;
+import com.ll.mutbook.user.email.EmailService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -13,6 +14,7 @@ import java.util.Optional;
 public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
+    private final EmailService emailService;
 
     public void create(String username, String userNickname, String email, String passward){
         SiteUser user = new SiteUser();
@@ -21,6 +23,8 @@ public class UserService {
         user.setEmail(email);
         user.setPassword(passwordEncoder.encode(passward));
         this.userRepository.save(user);
+
+        emailService.sendWelcomeMessage(user.getEmail());
 
     }
 

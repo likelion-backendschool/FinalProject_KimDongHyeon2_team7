@@ -23,7 +23,7 @@ public class Post {
     private String content;
 
     @Column(columnDefinition = "TEXT")
-    private String hashTag;
+    private String hashtag;
 
     private LocalDateTime createDate;
 

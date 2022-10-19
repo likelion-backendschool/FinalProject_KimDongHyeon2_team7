@@ -9,14 +9,7 @@
             <div class="card-text" style="white-space: pre-line;">
                 <div class="toast-ui-viewer">
                     <script type="text/x-template">
-                            # 하하
-                        ## 호호
-                        ## 희희
 
-                        ```java
-                        int a = 10;
-                        final int b = 20;
-                        ```
                     </script>
                 </div>
             </div>
@@ -38,7 +31,7 @@
                    sec:authorize="isAuthenticated()"
                    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
                    th:text="수정"></a>
-                <a href="javascript:void(0);" th:data-uri="@{|/post/${post.id}/delete|}"
+                <a href="javascript:void(0);" th:href="@{|/post/${post.id}/delete|}"
                    class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
                    th:if="${post.author != null and #authentication.getPrincipal().getUsername() == post.author.username}"
                    th:text="삭제"></a>
@@ -49,8 +42,7 @@
 
 
     <div class="card my-3">
-        <div class="card-body">
-            <p>해시태그 달릴 부분</p>
+        <div class="card-body" th:text="${post.hashtag}">
         </div>
     </div>
 

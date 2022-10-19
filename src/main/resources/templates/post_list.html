@@ -2,7 +2,8 @@
 <html layout:decorate="~{layout}" xmlns:layout="http://www.w3.org/1999/xhtml">
 
 <div layout:fragment="content" class="container my-3">
-    <a th:href="@{/post/write}" class="btn btn-primary">새 글</a>
+    <a class="btn btn-primary" sec:authorize="isAnonymous()" th:href="@{/member/login}">새글</a>
+    <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/post/write}">새글</a>
     <table class="table">
         <thead class="table-dark">
             <tr class="text-center">

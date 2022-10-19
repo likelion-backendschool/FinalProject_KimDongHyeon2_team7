@@ -1,9 +1,6 @@
 package com.ll.mutbook.keyword;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 import lombok.*;
 import lombok.experimental.SuperBuilder;
@@ -20,6 +17,7 @@ public class Keyword{
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
 
     private String hashTag;
 }

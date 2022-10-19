@@ -2,7 +2,8 @@
 
 <div layout:fragment="content" class="container">
     <h5 class="my-3 border-bottom pb-2">게시글 등록</h5>
-    <form th:action="@{/post/write}" th:object="${postForm}" method="post">
+    <form th:object="${postForm}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
         <div th:replace="form_errors :: formErrorsFragment"></div>
         <div class="mb-3">
             <label for="subject" class="form-label">제목</label>
@@ -10,13 +11,13 @@
         </div>
         <div class="mb-3">
             <label for="content" class="form-label">내용</label>
-            <input type="text" th:field="*{subject}" class="form-control" hidden>
+            <input type="text" th:field="*{content}" class="form-control" hidden>
             <div class="toast-ui-editor" toast-ui-editor--height="700px" toast-ui-editor--placeholder="내용을 입력해주세요.">
             </div>
         </div>
         <div class="mb-3">
             <label for="hashtag" class="form-label">해시태그</label>
-            <textarea th:field="*{content}" class="form-control" rows="10"></textarea>
+            <textarea th:field="*{hashtag}" class="form-control" rows="10"></textarea>
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     </form>

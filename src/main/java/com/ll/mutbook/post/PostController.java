@@ -67,7 +67,7 @@ public class PostController {
         }
         postForm.setSubject(post.getSubject());
         postForm.setContent(post.getContent());
-        postForm.setHashtag(post.getHashTag());
+        postForm.setHashtag(post.getHashtag());
 
         return "post_form";
     }
@@ -82,8 +82,9 @@ public class PostController {
         if (!post.getAuthor().getUsername().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
+
         this.postService.modify(post, postForm.getSubject(), postForm.getContent(), postForm.getHashtag());
-        return String.format("redirect:/question/detail/%s", id);
+        return String.format("redirect:/post/%s/detail", id);
     }
 
     @PreAuthorize("isAuthenticated()")

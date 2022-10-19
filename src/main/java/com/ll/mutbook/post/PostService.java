@@ -3,8 +3,6 @@ package com.ll.mutbook.post;
 import com.ll.mutbook.exception.DataNotFoundException;
 import com.ll.mutbook.user.SiteUser;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -59,7 +57,7 @@ public class PostService {
         Post p = new Post();
         p.setSubject(subject);
         p.setContent(content);
-        p.setHashTag(hashtag);
+        p.setHashtag(hashtag);
         p.setAuthor(user);
         p.setCreateDate(LocalDateTime.now());
         this.postRepository.save(p);
@@ -68,7 +66,7 @@ public class PostService {
     public void modify(Post post, String subject, String content, String hashtag) {
         post.setSubject(subject);
         post.setContent(content);
-        post.setHashTag(hashtag);
+        post.setHashtag(hashtag);
         post.setModifyDate(LocalDateTime.now());
         this.postRepository.save(post);
     }

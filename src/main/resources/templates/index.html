@@ -5,7 +5,8 @@
 
     <div>
         <h1>최신 글 100개</h1>
-        <a th:href="@{/post/write}" class="btn btn-primary">새 글</a>
+        <a class="btn btn-primary" sec:authorize="isAnonymous()" th:href="@{/member/login}">새글</a>
+        <a class="btn btn-primary" sec:authorize="isAuthenticated()" th:href="@{/post/write}">새글</a>
     </div>
     <table class="table">
         <thead class="table-dark">
