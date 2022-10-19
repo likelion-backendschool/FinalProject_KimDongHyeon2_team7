@@ -5,14 +5,8 @@
 
     <h2 class="border-bottom py-2" th:text="${post.subject}"></h2>
     <div class="card my-3">
+        <div> 내용 : </div>
         <div class="card-body">
-            <div class="card-text" style="white-space: pre-line;">
-                <div class="toast-ui-viewer">
-                    <script type="text/x-template">
-
-                    </script>
-                </div>
-            </div>
             <div class="d-flex justify-content-end">
                 <div th:if="${post.modifyDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
                     <div class="mb-2">수정됨</div>
@@ -26,6 +20,13 @@
 
                 </div>
             </div>
+
+            <div class="toast-ui-viewer">
+                <script type="text/x-template">
+                    [[${post.content}]]
+                </script>
+            </div>
+
             <div class="my-3">
                 <a th:href="@{|/post/${post.id}/modify|}" class="btn btn-sm btn-outline-secondary"
                    sec:authorize="isAuthenticated()"
@@ -40,7 +41,7 @@
         </div>
     </div>
 
-
+    <h3>해시태그</h3>
     <div class="card my-3">
         <div class="card-body" th:text="${post.hashtag}">
         </div>
