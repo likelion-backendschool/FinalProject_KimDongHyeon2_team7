@@ -6,7 +6,7 @@ import javax.annotation.processing.Generated;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2022-10-19T17:04:46+0900",
+    date = "2022-10-19T17:14:40+0900",
     comments = "version: 1.5.2.Final, compiler: IncrementalProcessingEnvironment from gradle-language-java-7.5.jar, environment: Java 17.0.1 (Oracle Corporation)"
 )
 public class KeywordMapperImpl implements KeywordMapper {
